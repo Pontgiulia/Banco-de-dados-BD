@@ -1,0 +1,131 @@
+Microsoft Windows [versão 10.0.19045.4412]
+(c) Microsoft Corporation. Todos os direitos reservados.
+
+C:\Users\lab1-aluno> cd..
+
+C:\Users>cd..
+
+C:\>cd xampp/mysql/bin
+
+C:\xampp\mysql\bin>mysql -u root
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 69
+Server version: 10.4.28-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> create database biblioteca
+    -> ;
+ERROR 1007 (HY000): Can't create database 'biblioteca'; database exists
+MariaDB [(none)]> use biblioteca
+Database changed
+MariaDB [biblioteca]> create table livro
+    -> ;
+ERROR 1113 (42000): A table must have at least 1 column
+MariaDB [biblioteca]> create table livro()
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ')' at line 1
+MariaDB [biblioteca]> create table livro(
+    -> idlivro int primary key auto_increment,
+    -> titulo varchar(255),
+    -> qtdepaginas int,
+    -> genero varchar(255),
+    -> autor varchar(255));
+Query OK, 0 rows affected (0.018 sec)
+
+MariaDB [biblioteca]> describe livro
+    -> ;
++-------------+--------------+------+-----+---------+----------------+
+| Field       | Type         | Null | Key | Default | Extra          |
++-------------+--------------+------+-----+---------+----------------+
+| idlivro     | int(11)      | NO   | PRI | NULL    | auto_increment |
+| titulo      | varchar(255) | YES  |     | NULL    |                |
+| qtdepaginas | int(11)      | YES  |     | NULL    |                |
+| genero      | varchar(255) | YES  |     | NULL    |                |
+| autor       | varchar(255) | YES  |     | NULL    |                |
++-------------+--------------+------+-----+---------+----------------+
+5 rows in set (0.015 sec)
+
+MariaDB [biblioteca]> drop database escola
+    -> ;
+Query OK, 0 rows affected (0.001 sec)
+
+MariaDB [biblioteca]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| biblioteca         |
+| information_schema |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
+| test               |
+| veterinaria        |
++--------------------+
+7 rows in set (0.001 sec)
+
+MariaDB [biblioteca]> use veterinaria
+Database changed
+MariaDB [veterinaria]> rename animal to animais;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'animal to animais' at line 1
+MariaDB [veterinaria]> rename table animal to animais;
+Query OK, 0 rows affected (0.011 sec)
+
+MariaDB [veterinaria]> use biblioteca
+Database changed
+MariaDB [biblioteca]> rename table livro to livros
+    -> ;
+Query OK, 0 rows affected (0.013 sec)
+
+MariaDB [biblioteca]> describe veterinaria
+    -> ;
+ERROR 1146 (42S02): Table 'biblioteca.veterinaria' doesn't exist
+MariaDB [biblioteca]> use veterinaria
+Database changed
+MariaDB [veterinaria]> describe veterinaria
+    -> ;
+ERROR 1146 (42S02): Table 'veterinaria.veterinaria' doesn't exist
+MariaDB [veterinaria]> describe animais
+    -> ;
++----------+--------------+------+-----+---------+----------------+
+| Field    | Type         | Null | Key | Default | Extra          |
++----------+--------------+------+-----+---------+----------------+
+| idanimal | int(11)      | NO   | PRI | NULL    | auto_increment |
+| nome     | varchar(255) | YES  |     | NULL    |                |
+| raca     | varchar(255) | YES  |     | NULL    |                |
+| peso     | decimal(7,2) | YES  |     | NULL    |                |
++----------+--------------+------+-----+---------+----------------+
+4 rows in set (0.011 sec)
+
+MariaDB [veterinaria]> ALTER TABLE animais ADD COLUMN idade(datetime);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(datetime)' at line 1
+MariaDB [veterinaria]> alter table animais add column idade(datetime);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(datetime)' at line 1
+MariaDB [veterinaria]> alter table animais add column corpele varchar(255);
+Query OK, 0 rows affected (0.010 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [veterinaria]> alter table animais drop column peso;
+Query OK, 0 rows affected (0.010 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [veterinaria]> describe animaisa
+    -> ;
+ERROR 1146 (42S02): Table 'veterinaria.animaisa' doesn't exist
+MariaDB [veterinaria]> describe animais;
++----------+--------------+------+-----+---------+----------------+
+| Field    | Type         | Null | Key | Default | Extra          |
++----------+--------------+------+-----+---------+----------------+
+| idanimal | int(11)      | NO   | PRI | NULL    | auto_increment |
+| nome     | varchar(255) | YES  |     | NULL    |                |
+| raca     | varchar(255) | YES  |     | NULL    |                |
+| corpele  | varchar(255) | YES  |     | NULL    |                |
++----------+--------------+------+-----+---------+----------------+
+4 rows in set (0.014 sec)
+
+MariaDB [veterinaria]> drop table animais;
+Query OK, 0 rows affected (0.009 sec)
+
+MariaDB [veterinaria]>
